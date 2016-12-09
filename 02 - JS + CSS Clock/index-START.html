@@ -81,17 +81,13 @@
     let minutes = date.getMinutes();
     let hours = date.getHours();
     
-    if (seconds / 60 == 1){
-      secondHand.style.transition = 'none';
-    }else{
-      secondHand.style = '';
-    }  
-
+    (seconds / 60 == 0) ? secondHand.style.transition = 'none' ? secondHand.style.transition = '';
+    (minutes / 60 == 0) ? minHand.style.transition = 'none' ? minHand.style.transition = '';
+    (hours / 12 == 0) ? hourHand.style.transition = 'none' ? hourHand.style.transition = '';
 
     hourHand.style.transform = `rotate(${Number(hours*360/12 + 90)}deg)`;
     minHand.style.transform = `rotate(${Number(minutes*360/60 + 90)}deg)`;
     secondHand.style.transform = `rotate(${Number(seconds*360/60 + 90)}deg)`;
-    console.log(hours,':',minutes,':',seconds);
   }
 
   setInterval(setTime, 1000);
