@@ -7,11 +7,68 @@
 <body>
 <canvas id="draw" width="800" height="800"></canvas>
 <script>
-</script>
+const canvas = document.getElementById('draw');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
+const ctx = canvas.getContext('2d');
+ctx.strokeStyle = 'red';
+ctx.lineJoin = 'round';
+ctx.lineCap = 'round';
+ctx.lineWidth = 1;
+
+let isDrawing = false;
+let hue = 0;
+let direction = 1;
+let maxSize = 30;
+
+canvas.addEventListener('mouseout', (ev) => {
+	isDrawing = false; 
+	ctx.lineWidth = 1;
+	hue = 0;
+});
+canvas.addEventListener('mousedown', (ev) => {
+	isDrawing = true;
+	[lastX, lastY] = [ev.offsetX,ev.offsetY];
+} );
+canvas.addEventListener('mouseup', (ev) => {
+	isDrawing = false; 
+	ctx.lineWidth = 1;
+	hue = 0;
+});
+canvas.addEventListener('mousemove', draw);
+
+let lastX = 0;
+let lastY = 0;
+
+function draw(ev){
+	if (!isDrawing){
+		return;
+	}
+	else{
+		if ((ctx.lineWidth > maxSize) || (ctx.lineWidth < 2)){
+			direction = -direction;
+		}
+
+		ctx.lineWidth+=direction;
+		hue++;
+		console.log(ctx.lineWidth);
+		ctx.beginPath();
+		ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+		ctx.moveTo(lastX,lastY);
+		ctx.lineTo(ev.offsetX,ev.offsetY);
+		ctx.stroke();
+		[lastX, lastY] = [ev.offsetX,ev.offsetY];
+	}
+}
+
+
+</script>
 <style>
   html, body {
     margin:0;
+    overflow: hidden;
+    
   }
 </style>
 
