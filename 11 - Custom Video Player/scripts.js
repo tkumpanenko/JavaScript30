@@ -6,8 +6,10 @@ const skipBtn = player.querySelectorAll('[data-skip]');
 const range = player.querySelectorAll('input[type=range]');
 const progress = player.querySelector('.progress');
 const filled = player.querySelector('.progress__filled');
+const fullscreen = player.querySelector('.fullscreen');
 
 toggle.addEventListener('click', togglePlay);
+fullscreen.addEventListener('click', fullscreenToggle);
 video.addEventListener('click', togglePlay);
 
 video.addEventListener('pause', updateButton);
@@ -60,4 +62,38 @@ function togglePlay(){
 function updateButton(ev){
 	let icon = ev.type === 'pause' ? '►' : '■';
 	toggle.textContent = icon;
+}
+
+
+let body = document.body;
+
+document.addEventListener('fullscreenchange', handlerFullscreenchange);
+document.addEventListener('mozfullscreenchange', handlerFullscreenchange);
+document.addEventListener('webkitfullscreenchange', handlerFullscreenchange);
+
+function handlerFullscreenchange(){
+	body.classList.toggle('fullscreen');
+}
+
+function fullscreenToggle(){
+	var elem = document.body
+	if (!body.classList.contains('fullscreen')) {
+		if (elem.requestFullscreen) {
+		  elem.requestFullscreen();
+		} else if (elem.mozRequestFullScreen) {
+		  elem.mozRequestFullScreen();
+		} else if (elem.webkitRequestFullscreen) {
+		  elem.webkitRequestFullscreen();
+		}
+	}else{
+		if (document.exitFullscreen) {
+			document.exitFullscreen();
+		} else if (document.webkitExitFullscreen) {
+			document.webkitExitFullscreen();
+		} else if (document.mozCancelFullScreen) {
+			document.mozCancelFullScreen();
+		} else if (document.msExitFullscreen) {
+			document.msExitFullscreen();
+		}
+	}
 }
