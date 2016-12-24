@@ -43,8 +43,29 @@
   <ul id="bands"></ul>
 
 <script>
+
+const bandsList = document.querySelector('ul#bands'); 
+
 const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
 
+
+function cleanUp(value){
+  return value.replace(/^(The |An |A )/i,'');
+};
+
+bands.sort((a,b) => cleanUp(a) > cleanUp(b) ? 1 : -1);
+
+render(bands, bandsList);
+
+function render(list = [], target){
+  target.innerHTML = list.map(band => {
+    return `
+      <li>
+        ${band}
+      </li>
+    `
+  }).join('');
+}
 
 </script>
 

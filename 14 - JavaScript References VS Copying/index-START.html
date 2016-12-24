@@ -11,7 +11,7 @@
 
     // Let's say we have an array
     const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
-
+    const team = players;
     // and we want to make a copy of it.
 
     // You might think we can just do something like this:
@@ -25,11 +25,16 @@
     // Why? It's because that is an array reference, not an array copy. They both point to the same array!
 
     // So, how do we fix this? We take a copy instead!
+    const team2 = players.splice();
 
     // one day
+    const team3 = [...players];
+    const team4 = [].concat(players);
+    const team5 = Array.from(players);
 
     // or create a new array and concat the old one in
-
+    Object.assign({},wes);
+    
     // or use the new ES6 Spread
 
     // now when we update it, the original one isn't changed
